@@ -106,3 +106,4 @@ venv.bak/
 .mypy_cache/
 
 /db/TOKEN.txt
+.idea/workspace.xml
