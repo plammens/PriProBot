@@ -1,17 +1,25 @@
-import telegram.ext as tge
+from handlers import *
+import logging
 
 
 with open("db/TOKEN.txt") as token_file:
     TOKEN = token_file.read().strip()
 
-UPDATER = tge.Updater(token=TOKEN)
+UPDATER = tge.Updater(token=TOKEN, use_context=True)
 BOT = UPDATER.bot
 DISPATCHER = UPDATER.dispatcher
 
+for handler in command_handlers:
+    DISPATCHER.add_handler(handler)
 
-def main():
-    pass
+
+def start_bot():
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        level=logging.INFO)
+
+    UPDATER.start_polling()
+    logging.info("bot online")
 
 
 if __name__ == '__main__':
-    main()
+    start_bot()
